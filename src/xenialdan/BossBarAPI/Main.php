@@ -15,6 +15,7 @@ use pocketmine\Player;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\network\protocol\SetEntityDataPacket;
 use pocketmine\entity\Entity;
+use pocketmine\utils\UUID;
 
 class Main extends PluginBase implements Listener{
 	public $eid = [], $i = 0;
@@ -53,6 +54,7 @@ class Main extends PluginBase implements Listener{
 		$npk->eid = $eid;
 		$this->getServer()->broadcastPacket($this->getServer()->getOnlinePlayers(), $npk);
 		
+		$state = 0;
 		$bpk = new BossEventPacket(); // TODO: check if can be removed
 		$bpk->eid = $eid;
 		$bpk->state = 0;

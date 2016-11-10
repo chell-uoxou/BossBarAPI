@@ -12,9 +12,8 @@ class FakeWither extends Location{
 	public $eid, $text, $health;
 	public $entityId = 52;//69
 
-	public function init($text, $percentage = 100){
+	public function init(){
 		$this->eid = /*Entity::$entityCount++*/ 1000;
-		$this->text = $text;
 	}
 
 	public function spawnTo(Player $player){
