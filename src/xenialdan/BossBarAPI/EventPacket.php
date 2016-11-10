@@ -5,7 +5,7 @@ namespace xenialdan\BossBarAPI;
 use pocketmine\network\protocol\DataPacket;
 
 class BossEventPacket extends DataPacket{
-	const NETWORK_ID = \pocketmine\network\protocol\Info::EVENT_PACKET;
+	const NETWORK_ID = 0x3f;
 	public $eid;
 	public $varint1;
 	public $state;

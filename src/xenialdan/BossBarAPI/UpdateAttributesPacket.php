@@ -6,7 +6,7 @@ use xenialdan\BossBarAPI\BossBarValues;
 use pocketmine\network\protocol\DataPacket;
 
 class UpdateAttributesPacket extends DataPacket{
-	const NETWORK_ID = \pocketmine\network\protocol\Info::UPDATE_ATTRIBUTES_PACKET??0x1f; // set if not exists;
+	const NETWORK_ID = 0x1f;
 	public $entityId;
 	
 	/** @var BossBarValues[] */

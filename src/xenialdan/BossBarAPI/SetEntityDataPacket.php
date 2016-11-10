@@ -5,7 +5,7 @@ namespace xenialdan\BossBarAPI;
 use pocketmine\utils\Binary;
 
 class SetEntityDataPacket extends DataPacket{
-	const NETWORK_ID = \pocketmine\network\protocol\Info::SET_ENTITY_DATA_PACKET??0x26;
+	const NETWORK_ID = 0x26;
 	public $eid;
 	public $metadata;
 
