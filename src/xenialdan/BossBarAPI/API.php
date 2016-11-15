@@ -41,6 +41,11 @@ class API{
 			$player->dataPacket($pk);
 		}
 		
+		$bpk = new BossEventPacket(); // This updates the bar
+		$bpk->eid = $eid;
+		$bpk->state = 0;
+		Server::getInstance()->broadcastPacket($players, $bpk);
+		
 		return $eid;
 	}
 
@@ -68,6 +73,11 @@ class API{
 		$packet->y = $player->y;
 		$packet->z = $player->z;
 		$player->dataPacket($packet);
+		
+		$bpk = new BossEventPacket(); // This updates the bar
+		$bpk->eid = $eid;
+		$bpk->state = 0;
+		$player->dataPacket($bpk);
 	}
 
 	/**
@@ -85,14 +95,14 @@ class API{
 		$upk->entityId = $eid;
 		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $upk);
 		
-		$bpk = new BossEventPacket(); // This updates the bar TODO: check if can be removed
+		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->eid = $eid;
 		$bpk->state = 0;
 		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $bpk);
 	}
 
 	/**
-	 * Sets thee BossBar title by EID
+	 * Sets the BossBar title by EID
 	 *
 	 * @param string $title 
 	 * @param int $eid 
@@ -105,7 +115,7 @@ class API{
 		$npk->eid = $eid;
 		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $npk);
 		
-		$bpk = new BossEventPacket(); // This updates the bar TODO: check if can be removed
+		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->eid = $eid;
 		$bpk->state = 0;
 		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $bpk);

@@ -17,7 +17,7 @@ class BossEventPacket extends DataPacket{
 		// $this->ka4 = $this->getShort();
 		// $this->ka5 = $this->getUnsignedVarInt();
 		// print $ka2 . '|' . $ka3 . '|' . $ka4 . '|' . $ka5 . '\n';
-		print '|' . $this->eid . '|' . $this->state . '\n';
+		// print '|' . $this->eid . '|' . $this->state . '\n';
 	}
 
 	public function encode(){
