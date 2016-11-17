@@ -27,12 +27,12 @@ class API{
 		$eid = Entity::$entityCount++;
 		
 		$packet = new AddEntityPacket();
-		$packet->eid = Entity::$entityCount++;
+		$packet->eid = $eid;
 		$packet->type = 52;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
-		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAG_SILENT => [Entity::DATA_TYPE_BYTE, 1], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title], 
-				Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
+		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
+				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title], Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
 		foreach($players as $player){
 			$pk = clone $packet;
 			$pk->x = $player->x;
@@ -46,7 +46,7 @@ class API{
 		$bpk->state = 0;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 		
-		return $eid;
+		return $eid; // TODO: return EID from bosseventpacket?
 	}
 
 	/**
@@ -67,8 +67,8 @@ class API{
 		$packet->type = 52;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
-		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAG_SILENT => [Entity::DATA_TYPE_BYTE, 1], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title], 
-				Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
+		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0],
+				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title], Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
 		$packet->x = $player->x;
 		$packet->y = $player->y;
 		$packet->z = $player->z;
