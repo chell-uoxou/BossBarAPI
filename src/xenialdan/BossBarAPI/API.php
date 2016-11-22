@@ -33,12 +33,12 @@ class API{
 		$packet->type = 52;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
-		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
+		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE ^ 1 << Entity::DATA_FLAG_NOAI], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
 				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title], Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
 		foreach($players as $player){
 			$pk = clone $packet;
 			$pk->x = $player->x;
-			$pk->y = $player->y;
+			$pk->y = $player->y - 28;
 			$pk->z = $player->z;
 			$player->dataPacket($pk);
 		}
@@ -69,10 +69,10 @@ class API{
 		$packet->type = 52;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
-		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
+		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE ^ 1 << Entity::DATA_FLAG_NOAI], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
 				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title], Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
 		$packet->x = $player->x;
-		$packet->y = $player->y;
+		$packet->y = $player->y - 28;
 		$packet->z = $player->z;
 		$player->dataPacket($packet);
 		
@@ -149,7 +149,7 @@ class API{
 	public static function playerMove(Location $pos, $eid){
 		$pk = new MoveEntityPacket();
 		$pk->x = $pos->x;
-		$pk->y = $pos->y - 4;
+		$pk->y = $pos->y - 28;
 		$pk->z = $pos->z;
 		$pk->eid = $eid;
 		$pk->yaw = $pk->pitch = $pk->headYaw = 0;
