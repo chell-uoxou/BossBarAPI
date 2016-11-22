@@ -27,8 +27,18 @@ class FakeWither extends Location{
 		$pk->z = $player->z;
 		$pk->yaw = $player->yaw;
 		$pk->pitch = $player->pitch;
-		$pk->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAG_SILENT => [Entity::DATA_TYPE_BYTE, 1], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0.25], Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $this->text], 
-				Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0], Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]];
+		$flags = 0;
+		$flags |= 1 << Entity::DATA_FLAG_INVISIBLE;
+		$flags |= 1 << Entity::DATA_FLAG_IMMOBILE;
+		$flags |= 1 << Entity::DATA_FLAG_SILENT;
+		$pk->metadata = [
+			Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1],
+			Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, $flags],
+			Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0.25],
+			Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $this->text], 
+			Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0],
+			Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]
+		];
 		$player->dataPacket($pk);
 
 		#$upk = new SetEntityLinkPacket();
