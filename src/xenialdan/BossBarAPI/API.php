@@ -142,7 +142,7 @@ class API{
 	/**
 	 * Handle player movement
 	 *
-	 * @param \Location $pos
+	 * @param Location $pos
 	 * @param unknown $eid 
 	 * @return MoveEntityPacket $pk
 	 */
