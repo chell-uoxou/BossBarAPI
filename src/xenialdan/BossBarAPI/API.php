@@ -93,7 +93,7 @@ class API{
 		if(!count(Server::getInstance()->getOnlinePlayers()) > 0) return;
 		
 		$upk = new UpdateAttributesPacket(); // Change health of fake wither -> bar progress
-		$upk->entries[] = new BossBarValues(0, 300, max(0.5, min([$percentage, 100])) / 100 * 300, 'minecraft:health'); // Ensures that the number is between 0 and 100;
+		$upk->entries[] = new BossBarValues(0, 600, max(0.5, min([$percentage, 100])) / 100 * 600, 'minecraft:health'); // Ensures that the number is between 0 and 100;
 		$upk->entityId = $eid;
 		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $upk);
 		
