@@ -1,6 +1,6 @@
   name: BossBarAPI
   main: xenialdan\BossBarAPI\Main
-  version: 2.2.1
+  version: 2.2.2
   api: [2.0.0]
   load: POSTWORLD
   authors: [XenialDan]
