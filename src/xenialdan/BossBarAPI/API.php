@@ -143,10 +143,10 @@ class API{
 	 * Handle player movement
 	 *
 	 * @param Location $pos
-	 * @param unknown $eid 
+	 * @param int $eid
 	 * @return MoveEntityPacket $pk
 	 */
-	public static function playerMove(Location $pos, $eid){
+	public static function playerMove(Location $pos, int $eid){
 		$pk = new MoveEntityPacket();
 		$pk->x = $pos->x;
 		$pk->y = $pos->y - 28;
