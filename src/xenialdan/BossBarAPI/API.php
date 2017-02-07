@@ -107,20 +107,21 @@ class API{
 	 * Sets the BossBar title by EID
 	 *
 	 * @param string $title 
-	 * @param int $eid 
+	 * @param int $eid
+	 * @param Player[] $players
 	 */
-	public static function setTitle(string $title, int $eid){
+	public static function setTitle(string $title, int $eid, $players = []){
 		if(!count(Server::getInstance()->getOnlinePlayers()) > 0) return;
 		
 		$npk = new SetEntityDataPacket(); // change name of fake wither -> bar text
 		$npk->metadata = [Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title]];
 		$npk->eid = $eid;
-		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $npk);
+		Server::getInstance()->broadcastPacket($players, $npk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->eid = $eid;
 		$bpk->state = 0;
-		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $bpk);
+		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
 	/**
