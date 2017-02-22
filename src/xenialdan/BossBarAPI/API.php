@@ -87,20 +87,23 @@ class API{
 	 *
 	 * @param int $percentage
 	 * 0-100
-	 * @param int $eid 
+	 * @param int $eid
+	 * @param array $players
+	 * If empty this will default to Server::getInstance()->getOnlinePlayers()
 	 */
-	public static function setPercentage(int $percentage, int $eid){
-		if(!count(Server::getInstance()->getOnlinePlayers()) > 0) return;
+	public static function setPercentage(int $percentage, int $eid, $players = []){
+		if(empty($players)) $players = Server::getInstance()->getOnlinePlayers();
+		if(!count($players) > 0) return;
 		
 		$upk = new UpdateAttributesPacket(); // Change health of fake wither -> bar progress
 		$upk->entries[] = new BossBarValues(0, 600, max(0.5, min([$percentage, 100])) / 100 * 600, 'minecraft:health'); // Ensures that the number is between 0 and 100;
 		$upk->entityId = $eid;
-		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $upk);
+		Server::getInstance()->broadcastPacket($players, $upk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->eid = $eid;
 		$bpk->state = 0;
-		Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $bpk);
+		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
 	/**
