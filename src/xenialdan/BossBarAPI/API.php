@@ -30,7 +30,7 @@ class API{
 		
 		$packet = new AddEntityPacket();
 		$packet->eid = $eid;
-		$packet->type = 52;
+		$packet->type = 53;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
 		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE ^ 1 << Entity::DATA_FLAG_NO_AI], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
@@ -66,7 +66,7 @@ class API{
 	public static function sendBossBarToPlayer(Player $player, int $eid, string $title, $ticks = null){
 		$packet = new AddEntityPacket();
 		$packet->eid = $eid;
-		$packet->type = 52;
+		$packet->type = 53;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
 		$packet->metadata = [Entity::DATA_LEAD_HOLDER_EID => [Entity::DATA_TYPE_LONG, -1], Entity::DATA_FLAGS => [Entity::DATA_TYPE_LONG, 0 ^ 1 << Entity::DATA_FLAG_SILENT ^ 1 << Entity::DATA_FLAG_INVISIBLE ^ 1 << Entity::DATA_FLAG_NO_AI], Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0], 
@@ -96,7 +96,7 @@ class API{
 		if(!count($players) > 0) return;
 		
 		$upk = new UpdateAttributesPacket(); // Change health of fake wither -> bar progress
-		$upk->entries[] = new BossBarValues(0, 600, max(0.5, min([$percentage, 100])) / 100 * 600, 'minecraft:health'); // Ensures that the number is between 0 and 100;
+		$upk->entries[] = new BossBarValues(0, 200, max(0.5, min([$percentage, 100])) / 100 * 200, 'minecraft:health'); // Ensures that the number is between 0 and 100;
 		$upk->entityId = $eid;
 		Server::getInstance()->broadcastPacket($players, $upk);
 		
