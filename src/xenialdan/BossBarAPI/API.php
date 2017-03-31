@@ -2,13 +2,15 @@
 
 namespace xenialdan\BossBarAPI;
 
-use pocketmine\Player;
-use pocketmine\network\protocol\RemoveEntityPacket;
-use pocketmine\Server;
-use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\entity\Entity;
-use pocketmine\network\protocol\MoveEntityPacket;
 use pocketmine\level\Location;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\network\protocol\MoveEntityPacket;
+use pocketmine\network\protocol\RemoveEntityPacket;
+use pocketmine\network\protocol\SetEntityDataPacket;
+use pocketmine\network\protocol\UpdateAttributesPacket;
+use pocketmine\Player;
+use pocketmine\Server;
 
 class API{
 
@@ -96,7 +98,7 @@ class API{
 		if(!count($players) > 0) return;
 		
 		$upk = new UpdateAttributesPacket(); // Change health of fake wither -> bar progress
-		$upk->entries[] = new BossBarValues(0, 200, max(0.5, min([$percentage, 100])) / 100 * 200, 'minecraft:health'); // Ensures that the number is between 0 and 100;
+		$upk->entries[] = new BossBarValues(1, 200, max(1, min([$percentage, 100])) / 100 * 200, 'minecraft:health'); // Ensures that the number is between 1 and 100; //Blame mojang, Ender Dragon seems to die on health 1
 		$upk->entityId = $eid;
 		Server::getInstance()->broadcastPacket($players, $upk);
 		
@@ -144,6 +146,7 @@ class API{
 	}
 
 	/**
+	 * @deprecated
 	 * Handle player movement
 	 *
 	 * @param Location $pos
@@ -151,12 +154,12 @@ class API{
 	 * @return MoveEntityPacket $pk
 	 */
 	public static function playerMove(Location $pos, int $eid){
-		$pk = new MoveEntityPacket();
+		/*$pk = new MoveEntityPacket();
 		$pk->x = $pos->x;
 		$pk->y = $pos->y - 28;
 		$pk->z = $pos->z;
 		$pk->eid = $eid;
 		$pk->yaw = $pk->pitch = $pk->headYaw = 0;
-		return clone $pk;
+		return clone $pk;*/
 	}
 }

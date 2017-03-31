@@ -3,24 +3,16 @@
 namespace xenialdan\BossBarAPI;
 
 use pocketmine\network\protocol\DataPacket;
+use pocketmine\network\protocol\Info;
 
-class BossEventPacket extends DataPacket{
-	const NETWORK_ID = 0x4b;
+class BossEventPacket extends DataPacket {
+	const NETWORK_ID = Info::BOSS_EVENT_PACKET;
 	public $eid;
 	public $state;
 
-	public function decode(){
-		$this->eid = $this->getEntityId();
-		$this->state = $this->getUnsignedVarInt();
-		// $this->ka2 = $this->getString();
-		// $this->ka3 = $this->getFloat();
-		// $this->ka4 = $this->getShort();
-		// $this->ka5 = $this->getUnsignedVarInt();
-		// print $ka2 . '|' . $ka3 . '|' . $ka4 . '|' . $ka5 . '\n';
-		// print '|' . $this->eid . '|' . $this->state . '\n';
-	}
+	public function decode() { }//We do not need to overload the server without use of this..
 
-	public function encode(){
+	public function encode() {
 		$this->reset();
 		$this->putEntityId($this->eid);
 		$this->putUnsignedVarInt($this->state);
