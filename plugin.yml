@@ -1,6 +1,6 @@
   name: BossBarAPI
   main: xenialdan\BossBarAPI\Main
-  version: 4.0.0
-  api: [2.0.0, 3.0.0, 3.0.0-ALPHA1, 3.0.0-ALPHA2, 3.0.0-ALPHA3]
+  version: 4.0.2
+  api: [2.0.0, 3.0.0, 3.0.0-ALPHA1, 3.0.0-ALPHA2, 3.0.0-ALPHA3, 3.0.0-ALPHA4]
   load: POSTWORLD
   authors: [XenialDan]
