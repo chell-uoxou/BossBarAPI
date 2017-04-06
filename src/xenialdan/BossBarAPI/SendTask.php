@@ -4,7 +4,6 @@ namespace xenialdan\BossBarAPI;
 
 use pocketmine\scheduler\PluginTask;
 use pocketmine\plugin\Plugin;
-use pocketmine\Player;
 
 class SendTask extends PluginTask{
 
@@ -20,4 +19,3 @@ class SendTask extends PluginTask{
 		$this->getHandler()->cancel();
 	}
 }
-?>
