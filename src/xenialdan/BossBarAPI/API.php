@@ -3,10 +3,8 @@
 namespace xenialdan\BossBarAPI;
 
 use pocketmine\entity\Entity;
-use pocketmine\level\Location;
 use pocketmine\network\mcpe\protocol\AddEntityPacket;
 use pocketmine\network\mcpe\protocol\BossEventPacket;
-use pocketmine\network\mcpe\protocol\MoveEntityPacket;
 use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
 use pocketmine\network\mcpe\protocol\SetEntityDataPacket;
 use pocketmine\network\mcpe\protocol\UpdateAttributesPacket;
@@ -32,6 +30,7 @@ class API{
 		$eid = Entity::$entityCount++;
 		
 		$packet = new AddEntityPacket();
+		$packet->entityUniqueId = $eid;
 		$packet->entityRuntimeId = $eid;
 		$packet->type = 52;
 		$packet->yaw = 0;
@@ -47,8 +46,8 @@ class API{
 		}
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->entityRuntimeId = $eid;
-		$bpk->state = 0;
+		$bpk->bossEid = $eid;
+		$bpk->eventType = BossEventPacket::TYPE_SHOW;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 		
 		return $eid; // TODO: return EID from bosseventpacket?
@@ -57,14 +56,14 @@ class API{
 	/**
 	 * Sends the text to one player
 	 *
-	 * @param Player $players
-	 * To who to send
+	 * @param Player $player
 	 * @param int $eid
 	 * The EID of an existing fake wither
 	 * @param string $title
 	 * The title of the boss bar
 	 * @param null|int $ticks
 	 * How long it displays
+	 * @internal param Player $players To who to send* To who to send
 	 */
 	public static function sendBossBarToPlayer(Player $player, int $eid, string $title, $ticks = null){
 		$packet = new AddEntityPacket();
@@ -79,9 +78,9 @@ class API{
 		$packet->z = $player->z;
 		$player->dataPacket($packet);
 		
-		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->entityRuntimeId = $eid;
-		$bpk->state = 0;
+		$bpk = new BossEventPacket(); // This updates the bar. According to shoghi this should not even be needed, but #blameshoghi, it doesn't update without
+		$bpk->bossEid = $eid;
+		$bpk->eventType = BossEventPacket::TYPE_SHOW;
 		$player->dataPacket($bpk);
 	}
 
@@ -104,8 +103,8 @@ class API{
 		Server::getInstance()->broadcastPacket($players, $upk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->entityRuntimeId = $eid;
-		$bpk->state = 0;
+		$bpk->bossEid = $eid;
+		$bpk->eventType = BossEventPacket::TYPE_SHOW;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
@@ -121,12 +120,12 @@ class API{
 		
 		$npk = new SetEntityDataPacket(); // change name of fake wither -> bar text
 		$npk->metadata = [Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title]];
-		$npk->entityRuntimeId = $eid;
+		$npk->eid = $eid;
 		Server::getInstance()->broadcastPacket($players, $npk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->entityRuntimeId = $eid;
-		$bpk->state = 0;
+		$bpk->bossEid = $eid;
+		$bpk->eventType = BossEventPacket::TYPE_SHOW;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
@@ -141,26 +140,8 @@ class API{
 		if(empty($players)) return false;
 		
 		$pk = new RemoveEntityPacket();
-		$pk->entityRuntimeId = $eid;
+		$pk->eid = $eid;
 		Server::getInstance()->broadcastPacket($players, $pk);
 		return true;
-	}
-
-	/**
-	 * @deprecated
-	 * Handle player movement
-	 *
-	 * @param Location $pos
-	 * @param int $eid
-	 * @return MoveEntityPacket $pk
-	 */
-	public static function playerMove(Location $pos, int $eid){
-		/*$pk = new MoveEntityPacket();
-		$pk->x = $pos->x;
-		$pk->y = $pos->y - 28;
-		$pk->z = $pos->z;
-		$pk->entityRuntimeId = $eid;
-		$pk->yaw = $pk->pitch = $pk->headYaw = 0;
-		return clone $pk;*/
 	}
 }
