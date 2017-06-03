@@ -4,11 +4,12 @@ namespace xenialdan\BossBarAPI;
 
 use pocketmine\entity\Entity;
 use pocketmine\level\Location;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\network\protocol\MoveEntityPacket;
-use pocketmine\network\protocol\RemoveEntityPacket;
-use pocketmine\network\protocol\SetEntityDataPacket;
-use pocketmine\network\protocol\UpdateAttributesPacket;
+use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\mcpe\protocol\BossEventPacket;
+use pocketmine\network\mcpe\protocol\MoveEntityPacket;
+use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
+use pocketmine\network\mcpe\protocol\SetEntityDataPacket;
+use pocketmine\network\mcpe\protocol\UpdateAttributesPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 
@@ -31,7 +32,7 @@ class API{
 		$eid = Entity::$entityCount++;
 		
 		$packet = new AddEntityPacket();
-		$packet->eid = $eid;
+		$packet->entityRuntimeId = $eid;
 		$packet->type = 52;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
@@ -46,7 +47,7 @@ class API{
 		}
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->eid = $eid;
+		$bpk->entityRuntimeId = $eid;
 		$bpk->state = 0;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 		
@@ -67,7 +68,7 @@ class API{
 	 */
 	public static function sendBossBarToPlayer(Player $player, int $eid, string $title, $ticks = null){
 		$packet = new AddEntityPacket();
-		$packet->eid = $eid;
+		$packet->entityRuntimeId = $eid;
 		$packet->type = 52;
 		$packet->yaw = 0;
 		$packet->pitch = 0;
@@ -79,7 +80,7 @@ class API{
 		$player->dataPacket($packet);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->eid = $eid;
+		$bpk->entityRuntimeId = $eid;
 		$bpk->state = 0;
 		$player->dataPacket($bpk);
 	}
@@ -103,7 +104,7 @@ class API{
 		Server::getInstance()->broadcastPacket($players, $upk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->eid = $eid;
+		$bpk->entityRuntimeId = $eid;
 		$bpk->state = 0;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
@@ -120,11 +121,11 @@ class API{
 		
 		$npk = new SetEntityDataPacket(); // change name of fake wither -> bar text
 		$npk->metadata = [Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title]];
-		$npk->eid = $eid;
+		$npk->entityRuntimeId = $eid;
 		Server::getInstance()->broadcastPacket($players, $npk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
-		$bpk->eid = $eid;
+		$bpk->entityRuntimeId = $eid;
 		$bpk->state = 0;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
@@ -140,7 +141,7 @@ class API{
 		if(empty($players)) return false;
 		
 		$pk = new RemoveEntityPacket();
-		$pk->eid = $eid;
+		$pk->entityRuntimeId = $eid;
 		Server::getInstance()->broadcastPacket($players, $pk);
 		return true;
 	}
@@ -158,7 +159,7 @@ class API{
 		$pk->x = $pos->x;
 		$pk->y = $pos->y - 28;
 		$pk->z = $pos->z;
-		$pk->eid = $eid;
+		$pk->entityRuntimeId = $eid;
 		$pk->yaw = $pk->pitch = $pk->headYaw = 0;
 		return clone $pk;*/
 	}

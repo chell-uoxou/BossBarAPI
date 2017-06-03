@@ -9,9 +9,8 @@
 namespace xenialdan\BossBarAPI;
 
 use pocketmine\event\Listener;
+use pocketmine\network\mcpe\protocol\BossEventPacket;
 use pocketmine\plugin\PluginBase;
-use pocketmine\Server;
-use pocketmine\network\protocol\SetEntityDataPacket;
 
 class Main extends PluginBase implements Listener{
 	private static $instance = null;
