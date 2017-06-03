@@ -30,7 +30,6 @@ class API{
 		$eid = Entity::$entityCount++;
 		
 		$packet = new AddEntityPacket();
-		$packet->entityUniqueId = $eid;
 		$packet->entityRuntimeId = $eid;
 		$packet->type = 52;
 		$packet->yaw = 0;
@@ -48,6 +47,8 @@ class API{
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->bossEid = $eid;
 		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->title = $title;
+		$bpk->healthPercent = 1;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 		
 		return $eid; // TODO: return EID from bosseventpacket?
@@ -81,6 +82,8 @@ class API{
 		$bpk = new BossEventPacket(); // This updates the bar. According to shoghi this should not even be needed, but #blameshoghi, it doesn't update without
 		$bpk->bossEid = $eid;
 		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->title = $title;
+		$bpk->healthPercent = 1;
 		$player->dataPacket($bpk);
 	}
 
@@ -105,6 +108,8 @@ class API{
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->bossEid = $eid;
 		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->title = ""; //We can't get this -.-
+		$bpk->healthPercent = $percentage/100;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
@@ -126,6 +131,8 @@ class API{
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->bossEid = $eid;
 		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->title = $title;
+		$bpk->healthPercent = 1;
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
