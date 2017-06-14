@@ -13,6 +13,7 @@ use pocketmine\network\mcpe\protocol\BossEventPacket;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase implements Listener{
+	/** @var Main */
 	private static $instance = null;
 
 	public function onEnable(){

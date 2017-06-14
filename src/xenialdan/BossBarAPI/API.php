@@ -55,6 +55,7 @@ class API{
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->color = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->overlay = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
+		$bpk->playerEid = 0;//TODO TEST!!!
 		Server::getInstance()->broadcastPacket($players, $bpk);
 		
 		return $eid; // TODO: return EID from bosseventpacket?
@@ -96,6 +97,7 @@ class API{
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->color = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->overlay = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
+		$bpk->playerEid = 0;//TODO TEST!!!
 		$player->dataPacket($bpk);
 	}
 
@@ -114,7 +116,7 @@ class API{
 		
 		$upk = new UpdateAttributesPacket(); // Change health of fake wither -> bar progress
 		$upk->entries[] = new BossBarValues(1, 600, max(1, min([$percentage, 100])) / 100 * 600, 'minecraft:health'); // Ensures that the number is between 1 and 100; //Blame mojang, Ender Dragon seems to die on health 1
-		$upk->entityId = $eid;
+		$upk->entityRuntimeId = $eid;
 		Server::getInstance()->broadcastPacket($players, $upk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
@@ -125,6 +127,7 @@ class API{
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->color = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->overlay = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
+		$bpk->playerEid = 0;//TODO TEST!!!
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
@@ -140,7 +143,7 @@ class API{
 		
 		$npk = new SetEntityDataPacket(); // change name of fake wither -> bar text
 		$npk->metadata = [Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $title]];
-		$npk->eid = $eid;
+		$npk->entityRuntimeId = $eid;
 		Server::getInstance()->broadcastPacket($players, $npk);
 		
 		$bpk = new BossEventPacket(); // This updates the bar
@@ -151,6 +154,7 @@ class API{
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->color = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
 		$bpk->overlay = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
+		$bpk->playerEid = 0;//TODO TEST!!!
 		Server::getInstance()->broadcastPacket($players, $bpk);
 	}
 
@@ -165,7 +169,7 @@ class API{
 		if(empty($players)) return false;
 		
 		$pk = new RemoveEntityPacket();
-		$pk->eid = $eid;
+		$pk->entityUniqueId = $eid;
 		Server::getInstance()->broadcastPacket($players, $pk);
 		return true;
 	}
