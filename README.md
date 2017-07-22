@@ -4,7 +4,7 @@ BossBarAPI for PocketMine. Inspired by http://bitbucket.org/inventivetalent/boss
 Poggit status + download: [![Poggit-CI](https://poggit.pmmp.io/ci.badge/thebigsmileXD/BossBarAPI/BossBarAPI)](https://poggit.pmmp.io/ci/thebigsmileXD/BossBarAPI/BossBarAPI)
 
 # Usage
-##To see the usage, check out these plugins:
+## To see the usage, check out these plugins:
 [BossBarTest](https://github.com/thebigsmileXD/BossBarTest)
 - Show 'Loading..' on join, show PlayerName + current Time after that (is updating all time)
 
