@@ -9,4 +9,4 @@ Poggit status + download: [![Poggit-CI](https://poggit.pmmp.io/ci.badge/thebigsm
 - Show 'Loading..' on join, show PlayerName + current Time after that (is updating all time)
 
 [BossAnnouncement](https://github.com/thebigsmileXD/BossAnnouncement)
-- Show Boss bar and change Text every x seconds. Configureable Never changing Head message (for example 'Hello {player}! Welcome to the Stoneage network)
+- Show Boss bar and change Text every x seconds. Configureable Never changing Head message (for example 'Hello {player}! Welcome to the xxx network)
