@@ -1,6 +1,6 @@
   name: BossBarAPI
   main: xenialdan\BossBarAPI\Main
-  version: 4.0.4
+  version: 5.0.0
   api: ['3.0.0-ALPHA7']
   load: STARTUP
   authors: [XenialDan]
