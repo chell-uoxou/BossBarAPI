@@ -3,11 +3,11 @@
 namespace xenialdan\BossBarAPI;
 
 use pocketmine\entity\Entity;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
-use pocketmine\network\mcpe\protocol\BossEventPacket;
-use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
-use pocketmine\network\mcpe\protocol\SetEntityDataPacket;
-use pocketmine\network\mcpe\protocol\UpdateAttributesPacket;
+use pocketmine\network\protocol\AddEntityPacket;
+use pocketmine\network\protocol\BossEventPacket;
+use pocketmine\network\protocol\RemoveEntityPacket;
+use pocketmine\network\protocol\SetEntityDataPacket;
+use pocketmine\network\protocol\UpdateAttributesPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 
@@ -49,7 +49,7 @@ class API{
 
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->bossEid = $eid;
-		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->eventType = $bpk->type;
 		$bpk->title = $title;
 		$bpk->healthPercent = 1;
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
@@ -91,7 +91,7 @@ class API{
 
 		$bpk = new BossEventPacket(); // This updates the bar. According to shoghi this should not even be needed, but #blameshoghi, it doesn't update without
 		$bpk->bossEid = $eid;
-		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->eventType = $bpk->type;
 		$bpk->title = $title;
 		$bpk->healthPercent = 1;
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
@@ -121,7 +121,7 @@ class API{
 
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->bossEid = $eid;
-		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->eventType = $bpk->type;
 		$bpk->title = ""; //We can't get this -.-
 		$bpk->healthPercent = $percentage / 100;
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA
@@ -148,7 +148,7 @@ class API{
 
 		$bpk = new BossEventPacket(); // This updates the bar
 		$bpk->bossEid = $eid;
-		$bpk->eventType = BossEventPacket::TYPE_SHOW;
+		$bpk->eventType = $bpk->type;
 		$bpk->title = $title;
 		$bpk->healthPercent = 1;
 		$bpk->unknownShort = 0;//TODO: remove. Shoghi deleted that unneeded mess that was copy-pasted from MC-JAVA

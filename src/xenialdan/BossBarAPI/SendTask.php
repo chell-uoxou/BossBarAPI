@@ -11,7 +11,7 @@ class SendTask extends PluginTask{
 		parent::__construct($owner);
 	}
 
-	public function onRun(int $currentTick){
+	public function onRun($currentTick){
 		$this->getOwner()->sendBossBar();
 	}
 
